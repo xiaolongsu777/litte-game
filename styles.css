@@ -1059,7 +1059,7 @@ h2 {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   image-rendering: pixelated;
   user-select: none;
   pointer-events: none;
@@ -1085,10 +1085,10 @@ h2 {
 .scene-mine-button {
   position: absolute;
   z-index: 10;
-  left: 3.2%;
-  top: 20.8%;
-  width: 33%;
-  height: 42%;
+  left: 3%;
+  top: 17%;
+  width: 32%;
+  height: 39%;
   border-radius: 48% 42% 34% 40%;
   background: transparent;
   cursor: pointer;
@@ -1154,21 +1154,21 @@ h2 {
 }
 
 .actor-miner {
-  width: 6.6%;
+  width: 5.6%;
   animation-name: miner-route;
-  animation-duration: 12s;
+  animation-duration: 13s;
 }
 
 .actor-cart {
-  width: 9.2%;
+  width: 8.4%;
   animation-name: cart-route;
-  animation-duration: 13.5s;
+  animation-duration: 14.5s;
 }
 
 .actor-loader {
-  width: 11.8%;
+  width: 10.4%;
   animation-name: loader-route;
-  animation-duration: 15s;
+  animation-duration: 16s;
 }
 
 .actor-cart .actor-sprite,
@@ -1199,49 +1199,49 @@ h2 {
 
 @keyframes miner-route {
   0% {
-    left: 18%;
-    top: 48%;
+    left: 21%;
+    top: 50%;
     opacity: 0;
     transform: scale(0.92);
   }
   6%,
   18% {
-    left: 21%;
-    top: 51%;
+    left: 24%;
+    top: 53%;
     opacity: 1;
     transform: scale(0.94) rotate(-3deg);
   }
   22% {
-    left: 25%;
-    top: 54%;
+    left: 29%;
+    top: 57%;
     transform: scale(0.96);
   }
   45% {
-    left: 44%;
-    top: 62%;
+    left: 45%;
+    top: 57%;
     transform: scale(1);
   }
   62%,
   70% {
-    left: 70%;
+    left: 53%;
     top: 54%;
     opacity: 1;
     transform: scale(0.95);
   }
   78% {
-    left: 48%;
-    top: 61%;
+    left: 44%;
+    top: 58%;
     transform: scale(0.98) scaleX(-1);
   }
   94% {
-    left: 22%;
-    top: 53%;
+    left: 27%;
+    top: 55%;
     opacity: 1;
     transform: scale(0.94) scaleX(-1);
   }
   100% {
-    left: 18%;
-    top: 48%;
+    left: 21%;
+    top: 50%;
     opacity: 0;
     transform: scale(0.92) scaleX(-1);
   }
@@ -1249,98 +1249,98 @@ h2 {
 
 @keyframes cart-route {
   0% {
-    left: 17%;
-    top: 55%;
+    left: 20%;
+    top: 48%;
     opacity: 0;
-    transform: scale(0.94);
+    transform: scale(0.9) rotate(15deg);
   }
   8%,
   18% {
-    left: 22%;
-    top: 57%;
+    left: 24%;
+    top: 58%;
     opacity: 1;
-    transform: scale(0.96);
+    transform: scale(0.94) rotate(5deg);
   }
   42% {
-    left: 42%;
-    top: 66%;
-    transform: scale(1);
+    left: 36%;
+    top: 70%;
+    transform: scale(0.98);
   }
   67%,
   75% {
     left: 68%;
-    top: 58%;
+    top: 67%;
     opacity: 1;
-    transform: scale(0.96);
+    transform: scale(0.96) rotate(-8deg);
   }
   82% {
-    left: 47%;
-    top: 65%;
+    left: 49%;
+    top: 70%;
     transform: scale(0.98) scaleX(-1);
   }
   96% {
-    left: 23%;
+    left: 24%;
     top: 58%;
     opacity: 1;
-    transform: scale(0.96) scaleX(-1);
+    transform: scale(0.94) scaleX(-1) rotate(-4deg);
   }
   100% {
-    left: 17%;
-    top: 55%;
+    left: 20%;
+    top: 48%;
     opacity: 0;
-    transform: scale(0.94) scaleX(-1);
+    transform: scale(0.9) scaleX(-1) rotate(-15deg);
   }
 }
 
 @keyframes loader-route {
   0% {
-    left: 35%;
-    top: 65%;
+    left: 31%;
+    top: 58%;
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.92);
   }
   10%,
   20% {
-    left: 38%;
-    top: 65%;
+    left: 35%;
+    top: 63%;
     opacity: 1;
-    transform: scale(0.96);
+    transform: scale(0.94);
   }
   48% {
-    left: 52%;
-    top: 68%;
-    transform: scale(1);
+    left: 56%;
+    top: 70%;
+    transform: scale(0.98);
   }
   70%,
   78% {
-    left: 68%;
-    top: 61%;
+    left: 86%;
+    top: 58%;
     opacity: 1;
-    transform: scale(0.96);
+    transform: scale(0.94);
   }
   86% {
-    left: 53%;
-    top: 68%;
-    transform: scale(1) scaleX(-1);
+    left: 62%;
+    top: 70%;
+    transform: scale(0.98) scaleX(-1);
   }
   96% {
-    left: 39%;
-    top: 66%;
+    left: 37%;
+    top: 64%;
     opacity: 1;
-    transform: scale(0.96) scaleX(-1);
+    transform: scale(0.94) scaleX(-1);
   }
   100% {
-    left: 35%;
-    top: 65%;
+    left: 31%;
+    top: 58%;
     opacity: 0;
-    transform: scale(0.95) scaleX(-1);
+    transform: scale(0.92) scaleX(-1);
   }
 }
 
 .scene-score-burst {
   position: absolute;
-  left: 22%;
-  top: 32%;
+  left: 21%;
+  top: 31%;
   color: #fff8c9;
   text-shadow: 0 2px 0 #8f5b20, 0 0 12px rgba(217, 155, 43, 0.65);
   font-size: clamp(1rem, 3.6vw, 1.7rem);
@@ -1352,8 +1352,8 @@ h2 {
   --x: 0px;
   --y: -50px;
   position: absolute;
-  left: 22%;
-  top: 38%;
+  left: 21%;
+  top: 37%;
   width: clamp(18px, 3.2vw, 32px);
   height: clamp(18px, 3.2vw, 32px);
   object-fit: contain;
@@ -1429,10 +1429,10 @@ h2 {
   }
 
   .scene-mine-button {
-    left: 1%;
-    top: 21%;
-    width: 39%;
-    height: 43%;
+    left: 2%;
+    top: 18%;
+    width: 37%;
+    height: 40%;
   }
 
   .scene-actor {
@@ -1460,20 +1460,20 @@ h2 {
   }
 
   .actor-miner {
-    left: 34%;
-    top: 60%;
+    left: 44%;
+    top: 58%;
     transform: scale(0.96);
   }
 
   .actor-cart {
-    left: 44%;
-    top: 66%;
+    left: 58%;
+    top: 69%;
     transform: scale(0.98);
   }
 
   .actor-loader {
-    left: 54%;
-    top: 68%;
+    left: 74%;
+    top: 64%;
     transform: scale(1);
   }
 

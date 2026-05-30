@@ -210,7 +210,7 @@ function createSceneClickBurst(amount) {
   for (let index = 0; index < 8; index += 1) {
     const particle = document.createElement("img");
     particle.className = "scene-gold-particle";
-    particle.src = "assets/gold_new/sprites/gold-small.png";
+    particle.src = "assets/gold/gold-nugget.png";
     particle.alt = "";
     const angle = -150 + index * 34;
     const distance = 30 + (index % 4) * 11;
@@ -316,7 +316,7 @@ function renderShop() {
 function createActor(kind, index, count) {
   const route = document.createElement("span");
   route.className = `scene-actor actor-${kind}`;
-  route.style.setProperty("--delay", `${-(index * 8.5) / Math.max(count, 1)}s`);
+  route.style.setProperty("--delay", `${-(index * 9.5) / Math.max(count, 1)}s`);
   route.style.setProperty("--lane", `${index % 5}`);
 
   const sprite = document.createElement("img");
