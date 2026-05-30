@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>扫雷</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <nav class="mini-nav" aria-label="页面导航">
+        <a href="index.html">小游戏合集</a>
+      </nav>
+
+      <section class="topbar" aria-label="游戏状态">
+        <div>
+          <p class="eyebrow">MINESWEEPER</p>
+          <h1>扫雷</h1>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">雷</span>
+            <strong id="mineCount">10</strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">时间</span>
+            <strong id="timer">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="游戏控制">
+        <div class="levels" role="group" aria-label="难度">
+          <button class="level is-active" data-level="easy" type="button">简单</button>
+          <button class="level" data-level="medium" type="button">普通</button>
+          <button class="level" data-level="hard" type="button">困难</button>
+        </div>
+        <button id="newGame" class="new-game" type="button" aria-label="新游戏">↻</button>
+      </section>
+
+      <p id="message" class="message" role="status">先点一格开始，右键或长按可以插旗。</p>
+      <div id="board" class="board" aria-label="扫雷棋盘"></div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>金矿大亨</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body class="gold-page">
+    <main class="gold-app">
+      <nav class="mini-nav gold-nav" aria-label="页面导航">
+        <a href="index.html">小游戏合集</a>
+      </nav>
+
+      <section class="gold-hero" aria-label="金矿大亨">
+        <div>
+          <p class="eyebrow">GOLD MINE TYCOON</p>
+          <h1>金矿大亨</h1>
+          <p id="goalText" class="gold-goal">目标：累计开采 10,000 金币</p>
+        </div>
+        <button id="resetSave" class="reset-save" type="button">重置存档</button>
+      </section>
+
+      <section class="gold-layout">
+        <section class="mine-panel" aria-label="开采区">
+          <div class="resource-strip">
+            <div class="resource">
+              <span>金币</span>
+              <strong id="goldAmount">0</strong>
+            </div>
+            <div class="resource">
+              <span>每秒</span>
+              <strong id="gpsAmount">0</strong>
+            </div>
+            <div class="resource">
+              <span>点击</span>
+              <strong id="clickPower">1</strong>
+            </div>
+          </div>
+
+          <div class="mine-stage" aria-label="矿场运输动画">
+            <div class="stage-cave" aria-hidden="true"></div>
+            <div id="stageUnits" class="stage-units" aria-hidden="true"></div>
+            <img class="stage-warehouse" src="assets/gold/warehouse.png" alt="">
+          </div>
+
+          <button id="coinButton" class="coin-button" type="button" aria-label="开采金币">
+            <img src="assets/gold/gold-coin.png" alt="">
+          </button>
+          <p id="mineMessage" class="mine-message" role="status">点击金币开始开采。</p>
+
+          <div class="progress-wrap" aria-label="目标进度">
+            <div class="progress-label">
+              <span>矿场进度</span>
+              <strong id="progressText">0%</strong>
+            </div>
+            <div class="progress-track">
+              <span id="progressBar"></span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="side-panels">
+          <section class="shop-panel" aria-label="商店">
+            <div class="shop-heading">
+              <p class="eyebrow">SHOP</p>
+              <h2>升级矿场</h2>
+            </div>
+            <div id="shopList" class="shop-list"></div>
+          </section>
+
+          <section class="gem-panel" aria-label="宝石工坊">
+            <div class="shop-heading">
+              <p class="eyebrow">GEMS</p>
+              <h2>宝石工坊</h2>
+            </div>
+
+            <div class="rough-row">
+              <span class="rough-icon" aria-hidden="true"></span>
+              <div>
+                <strong>包石原石</strong>
+                <small>挖矿时偶尔发现，可以凿开，也可以直接出售。</small>
+              </div>
+              <b id="roughStoneCount">0</b>
+            </div>
+
+            <div class="gem-actions">
+              <button id="chiselStone" type="button">凿开 · <span id="chiselCost">100</span></button>
+              <button id="sellStone" type="button">出售 300</button>
+            </div>
+
+            <div class="gem-stats">
+              <div class="gem-stat low">
+                <span>低级</span>
+                <strong id="lowGemCount">0</strong>
+                <small>+0.1%</small>
+              </div>
+              <div class="gem-stat mid">
+                <span>中级</span>
+                <strong id="midGemCount">0</strong>
+                <small>+0.2%</small>
+              </div>
+              <div class="gem-stat high">
+                <span>高级</span>
+                <strong id="highGemCount">0</strong>
+                <small>+1%</small>
+              </div>
+            </div>
+
+            <p class="gem-bonus">总产量加成：<strong id="gemBonusText">+0%</strong></p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="gold.js"></script>
+  </body>
+</html>
