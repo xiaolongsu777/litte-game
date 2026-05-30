@@ -3,6 +3,7 @@ const GOAL_GOLD = 10000;
 const ROUGH_STONE_CLICK_CHANCE = 0.01;
 const ROUGH_STONE_AUTO_CHANCE = 0.001;
 const STONE_SELL_VALUE = 300;
+const MAX_ACTORS_PER_TYPE = 5;
 
 const SHOP_ITEMS = [
   {
@@ -32,7 +33,7 @@ const SHOP_ITEMS = [
     baseCost: 900,
     production: 35,
     clickBonus: 0,
-    image: "assets/gold/loader.png",
+    image: "assets/gold_new/sprites/loader-full.png",
     unit: "+35/s",
   },
   {
@@ -68,9 +69,10 @@ const DEFAULT_STATE = {
 const goldAmountEl = document.querySelector("#goldAmount");
 const gpsAmountEl = document.querySelector("#gpsAmount");
 const clickPowerEl = document.querySelector("#clickPower");
-const coinButton = document.querySelector("#coinButton");
+const sceneMineButton = document.querySelector("#sceneMineButton");
+const sceneActorsEl = document.querySelector("#sceneActors");
+const sceneEffectsEl = document.querySelector("#sceneEffects");
 const shopList = document.querySelector("#shopList");
-const stageUnitsEl = document.querySelector("#stageUnits");
 const mineMessageEl = document.querySelector("#mineMessage");
 const goalTextEl = document.querySelector("#goalText");
 const progressTextEl = document.querySelector("#progressText");
@@ -86,7 +88,7 @@ const highGemCountEl = document.querySelector("#highGemCount");
 const gemBonusTextEl = document.querySelector("#gemBonusText");
 
 let state = loadState();
-let stageSignature = "";
+let sceneSignature = "";
 
 function freshDefaultState() {
   return {
@@ -100,8 +102,7 @@ function loadState() {
   try {
     const raw = localStorage.getItem(SAVE_KEY);
     if (!raw) return freshDefaultState();
-    const saved = JSON.parse(raw);
-    return normalizeState(saved);
+    return normalizeState(JSON.parse(raw));
   } catch {
     return freshDefaultState();
   }
@@ -134,9 +135,7 @@ function saveState() {
 }
 
 function formatNumber(value) {
-  if (value < 1000) {
-    return Number.isInteger(value) ? value.toString() : value.toFixed(1);
-  }
+  if (value < 1000) return Number.isInteger(value) ? value.toString() : value.toFixed(1);
   if (value < 1000000) return `${(value / 1000).toFixed(value < 10000 ? 1 : 0)}K`;
   return `${(value / 1000000).toFixed(2)}M`;
 }
@@ -190,10 +189,7 @@ function maybeFindRoughStone(chance, source) {
 function mineGold() {
   const amount = clickYield();
   addGold(amount);
-  coinButton.classList.remove("is-popping");
-  void coinButton.offsetWidth;
-  coinButton.classList.add("is-popping");
-  createClickBurst(amount);
+  createSceneClickBurst(amount);
 
   const foundStone = maybeFindRoughStone(ROUGH_STONE_CLICK_CHANCE, "click");
   if (!foundStone) {
@@ -204,24 +200,24 @@ function mineGold() {
   render();
 }
 
-function createClickBurst(amount) {
+function createSceneClickBurst(amount) {
   const burst = document.createElement("span");
-  burst.className = "click-burst";
+  burst.className = "scene-score-burst";
   burst.textContent = `+${formatNumber(amount)}`;
-  coinButton.append(burst);
+  sceneEffectsEl.append(burst);
   burst.addEventListener("animationend", () => burst.remove(), { once: true });
 
-  for (let index = 0; index < 7; index += 1) {
+  for (let index = 0; index < 8; index += 1) {
     const particle = document.createElement("img");
-    particle.className = "nugget-particle";
-    particle.src = "assets/gold/gold-nugget.png";
+    particle.className = "scene-gold-particle";
+    particle.src = "assets/gold_new/sprites/gold-small.png";
     particle.alt = "";
-    const angle = -120 + index * 40;
-    const distance = 52 + (index % 3) * 18;
+    const angle = -150 + index * 34;
+    const distance = 30 + (index % 4) * 11;
     particle.style.setProperty("--x", `${Math.cos((angle * Math.PI) / 180) * distance}px`);
     particle.style.setProperty("--y", `${Math.sin((angle * Math.PI) / 180) * distance}px`);
-    particle.style.animationDelay = `${index * 18}ms`;
-    coinButton.append(particle);
+    particle.style.animationDelay = `${index * 16}ms`;
+    sceneEffectsEl.append(particle);
     particle.addEventListener("animationend", () => particle.remove(), { once: true });
   }
 }
@@ -238,9 +234,7 @@ function buyItem(id) {
 
   state.gold -= cost;
   state.owned[id] += 1;
-  if (item.clickBonus) {
-    state.clickPower += item.clickBonus;
-  }
+  if (item.clickBonus) state.clickPower += item.clickBonus;
   mineMessageEl.textContent = `购买了 ${item.name}。`;
   saveState();
   render();
@@ -319,34 +313,43 @@ function renderShop() {
   shopList.append(fragment);
 }
 
-function renderStageUnits() {
-  const nextSignature = ["miner", "cart", "mine"].map((id) => Math.min(state.owned[id], 5)).join(":");
-  if (nextSignature === stageSignature) return;
-  stageSignature = nextSignature;
+function createActor(kind, index, count) {
+  const route = document.createElement("span");
+  route.className = `scene-actor actor-${kind}`;
+  route.style.setProperty("--delay", `${-(index * 8.5) / Math.max(count, 1)}s`);
+  route.style.setProperty("--lane", `${index % 5}`);
 
-  stageUnitsEl.innerHTML = "";
-  const stageItems = [
-    { id: "miner", className: "worker", image: "assets/gold/worker-carry.png", duration: 8.8 },
-    { id: "cart", className: "cart", image: "assets/gold/cart-carry.png", duration: 7.4 },
-    { id: "mine", className: "loader", image: "assets/gold/loader.png", duration: 9.8 },
-  ];
+  const sprite = document.createElement("img");
+  sprite.alt = "";
+  sprite.className = "actor-sprite";
+  sprite.src = {
+    miner: index % 2 === 0 ? "assets/gold_new/sprites/miner-carry.png" : "assets/gold_new/sprites/miner-pick.png",
+    cart: "assets/gold_new/sprites/cart-full.png",
+    loader: "assets/gold_new/sprites/loader-full.png",
+  }[kind];
+
+  route.append(sprite);
+  return route;
+}
+
+function renderSceneActors() {
+  const counts = {
+    miner: Math.min(state.owned.miner, MAX_ACTORS_PER_TYPE),
+    cart: Math.min(state.owned.cart, MAX_ACTORS_PER_TYPE),
+    loader: Math.min(state.owned.mine, MAX_ACTORS_PER_TYPE),
+  };
+  const nextSignature = `${counts.miner}:${counts.cart}:${counts.loader}`;
+  if (nextSignature === sceneSignature) return;
+  sceneSignature = nextSignature;
+
+  sceneActorsEl.innerHTML = "";
   const fragment = document.createDocumentFragment();
-
-  stageItems.forEach((item, itemIndex) => {
-    const count = Math.min(state.owned[item.id], 5);
+  Object.entries(counts).forEach(([kind, count]) => {
     for (let index = 0; index < count; index += 1) {
-      const carrier = document.createElement("img");
-      carrier.className = `stage-unit ${item.className}`;
-      carrier.src = item.image;
-      carrier.alt = "";
-      carrier.style.setProperty("--lane", `${itemIndex}`);
-      carrier.style.setProperty("--delay", `${-(index * item.duration) / Math.max(count, 1)}s`);
-      carrier.style.setProperty("--duration", `${item.duration}s`);
-      fragment.append(carrier);
+      fragment.append(createActor(kind, index, count));
     }
   });
-
-  stageUnitsEl.append(fragment);
+  sceneActorsEl.append(fragment);
 }
 
 function renderGoal() {
@@ -384,7 +387,7 @@ function render() {
   renderGoal();
   renderShop();
   renderGems();
-  renderStageUnits();
+  renderSceneActors();
 }
 
 function tick() {
@@ -392,9 +395,7 @@ function tick() {
   if (gps > 0) {
     addGold(gps);
     const foundStone = maybeFindRoughStone(ROUGH_STONE_AUTO_CHANCE, "auto");
-    if (!foundStone) {
-      mineMessageEl.textContent = `矿场自动产出 +${formatNumber(gps)} 金币`;
-    }
+    if (!foundStone) mineMessageEl.textContent = `矿场自动产出 +${formatNumber(gps)} 金币`;
     saveState();
     render();
   }
@@ -403,11 +404,12 @@ function tick() {
 function resetSave() {
   localStorage.removeItem(SAVE_KEY);
   state = freshDefaultState();
+  sceneSignature = "";
   mineMessageEl.textContent = "存档已重置，重新开采吧。";
   render();
 }
 
-coinButton.addEventListener("click", mineGold);
+sceneMineButton.addEventListener("click", mineGold);
 chiselStoneButton.addEventListener("click", chiselStone);
 sellStoneButton.addEventListener("click", sellStone);
 resetSaveButton.addEventListener("click", resetSave);

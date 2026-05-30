@@ -1030,3 +1030,455 @@ h2 {
     animation-duration: 1ms;
   }
 }
+
+/* Gold mine scene v2 */
+.gold-app {
+  width: min(96vw, 1180px);
+}
+
+.compact-hero {
+  min-height: 154px;
+  align-items: center;
+}
+
+.scene-panel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(29, 35, 40, 0.22);
+  border-radius: 8px;
+  background: #668f32;
+  box-shadow: 0 18px 42px rgba(38, 35, 29, 0.18);
+  isolation: isolate;
+}
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+  user-select: none;
+  pointer-events: none;
+}
+
+.scene-hud {
+  position: absolute;
+  z-index: 8;
+  left: 16px;
+  top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(86px, 1fr));
+  gap: 8px;
+  width: min(520px, calc(100% - 32px));
+}
+
+.scene-hud .resource {
+  background: rgba(255, 253, 248, 0.9);
+  border-color: rgba(122, 78, 42, 0.35);
+  box-shadow: 0 8px 20px rgba(38, 35, 29, 0.14);
+}
+
+.scene-mine-button {
+  position: absolute;
+  z-index: 10;
+  left: 3.2%;
+  top: 20.8%;
+  width: 33%;
+  height: 42%;
+  border-radius: 48% 42% 34% 40%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.scene-mine-button:focus-visible {
+  outline: 3px solid rgba(255, 216, 110, 0.95);
+  outline-offset: 3px;
+}
+
+.scene-actors,
+.scene-effects {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.scene-effects {
+  z-index: 12;
+}
+
+.scene-progress {
+  position: absolute;
+  z-index: 8;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 253, 248, 0.34);
+  border-radius: 8px;
+  background: rgba(255, 253, 248, 0.86);
+  box-shadow: 0 8px 20px rgba(38, 35, 29, 0.14);
+}
+
+.scene-message {
+  margin: 12px 0;
+  text-align: center;
+}
+
+.scene-actor {
+  --delay: 0s;
+  --lane: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 7%;
+  aspect-ratio: 1;
+  transform-origin: 50% 100%;
+  animation-delay: var(--delay);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.actor-sprite {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 6px 3px rgba(38, 35, 29, 0.28));
+  animation: actor-step 620ms ease-in-out infinite;
+}
+
+.actor-miner {
+  width: 6.6%;
+  animation-name: miner-route;
+  animation-duration: 12s;
+}
+
+.actor-cart {
+  width: 9.2%;
+  animation-name: cart-route;
+  animation-duration: 13.5s;
+}
+
+.actor-loader {
+  width: 11.8%;
+  animation-name: loader-route;
+  animation-duration: 15s;
+}
+
+.actor-cart .actor-sprite,
+.actor-loader .actor-sprite {
+  animation-name: vehicle-bob;
+  animation-duration: 780ms;
+}
+
+@keyframes actor-step {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-4%) rotate(1deg);
+  }
+}
+
+@keyframes vehicle-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.5deg);
+  }
+  50% {
+    transform: translateY(-2.5%) rotate(0.7deg);
+  }
+}
+
+@keyframes miner-route {
+  0% {
+    left: 18%;
+    top: 48%;
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  6%,
+  18% {
+    left: 21%;
+    top: 51%;
+    opacity: 1;
+    transform: scale(0.94) rotate(-3deg);
+  }
+  22% {
+    left: 25%;
+    top: 54%;
+    transform: scale(0.96);
+  }
+  45% {
+    left: 44%;
+    top: 62%;
+    transform: scale(1);
+  }
+  62%,
+  70% {
+    left: 70%;
+    top: 54%;
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  78% {
+    left: 48%;
+    top: 61%;
+    transform: scale(0.98) scaleX(-1);
+  }
+  94% {
+    left: 22%;
+    top: 53%;
+    opacity: 1;
+    transform: scale(0.94) scaleX(-1);
+  }
+  100% {
+    left: 18%;
+    top: 48%;
+    opacity: 0;
+    transform: scale(0.92) scaleX(-1);
+  }
+}
+
+@keyframes cart-route {
+  0% {
+    left: 17%;
+    top: 55%;
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  8%,
+  18% {
+    left: 22%;
+    top: 57%;
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  42% {
+    left: 42%;
+    top: 66%;
+    transform: scale(1);
+  }
+  67%,
+  75% {
+    left: 68%;
+    top: 58%;
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  82% {
+    left: 47%;
+    top: 65%;
+    transform: scale(0.98) scaleX(-1);
+  }
+  96% {
+    left: 23%;
+    top: 58%;
+    opacity: 1;
+    transform: scale(0.96) scaleX(-1);
+  }
+  100% {
+    left: 17%;
+    top: 55%;
+    opacity: 0;
+    transform: scale(0.94) scaleX(-1);
+  }
+}
+
+@keyframes loader-route {
+  0% {
+    left: 35%;
+    top: 65%;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  10%,
+  20% {
+    left: 38%;
+    top: 65%;
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  48% {
+    left: 52%;
+    top: 68%;
+    transform: scale(1);
+  }
+  70%,
+  78% {
+    left: 68%;
+    top: 61%;
+    opacity: 1;
+    transform: scale(0.96);
+  }
+  86% {
+    left: 53%;
+    top: 68%;
+    transform: scale(1) scaleX(-1);
+  }
+  96% {
+    left: 39%;
+    top: 66%;
+    opacity: 1;
+    transform: scale(0.96) scaleX(-1);
+  }
+  100% {
+    left: 35%;
+    top: 65%;
+    opacity: 0;
+    transform: scale(0.95) scaleX(-1);
+  }
+}
+
+.scene-score-burst {
+  position: absolute;
+  left: 22%;
+  top: 32%;
+  color: #fff8c9;
+  text-shadow: 0 2px 0 #8f5b20, 0 0 12px rgba(217, 155, 43, 0.65);
+  font-size: clamp(1rem, 3.6vw, 1.7rem);
+  font-weight: 1000;
+  animation: scene-score 780ms ease-out forwards;
+}
+
+.scene-gold-particle {
+  --x: 0px;
+  --y: -50px;
+  position: absolute;
+  left: 22%;
+  top: 38%;
+  width: clamp(18px, 3.2vw, 32px);
+  height: clamp(18px, 3.2vw, 32px);
+  object-fit: contain;
+  image-rendering: pixelated;
+  animation: scene-particle 760ms ease-out forwards;
+}
+
+@keyframes scene-score {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.86);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-58px) scale(1.05);
+  }
+}
+
+@keyframes scene-particle {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.55) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.08) rotate(130deg);
+  }
+}
+
+.bottom-panels {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.bottom-panels .shop-panel,
+.bottom-panels .gem-panel {
+  min-height: 100%;
+}
+
+@media (max-width: 760px) {
+  .compact-hero {
+    min-height: 210px;
+  }
+
+  .scene-hud {
+    left: 8px;
+    right: 8px;
+    top: 8px;
+    width: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .scene-hud .resource {
+    padding: 7px 5px;
+  }
+
+  .scene-hud .resource strong {
+    font-size: 1rem;
+  }
+
+  .scene-progress {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 8px;
+  }
+
+  .scene-mine-button {
+    left: 1%;
+    top: 21%;
+    width: 39%;
+    height: 43%;
+  }
+
+  .scene-actor {
+    width: 8.8%;
+  }
+
+  .actor-cart {
+    width: 11%;
+  }
+
+  .actor-loader {
+    width: 14%;
+  }
+
+  .bottom-panels {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-actor,
+  .actor-sprite {
+    animation: none;
+    opacity: 1;
+  }
+
+  .actor-miner {
+    left: 34%;
+    top: 60%;
+    transform: scale(0.96);
+  }
+
+  .actor-cart {
+    left: 44%;
+    top: 66%;
+    transform: scale(0.98);
+  }
+
+  .actor-loader {
+    left: 54%;
+    top: 68%;
+    transform: scale(1);
+  }
+
+  .scene-score-burst,
+  .scene-gold-particle {
+    animation-duration: 1ms;
+  }
+}

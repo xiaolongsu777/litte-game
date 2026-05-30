@@ -12,7 +12,7 @@
         <a href="index.html">小游戏合集</a>
       </nav>
 
-      <section class="gold-hero" aria-label="金矿大亨">
+      <section class="gold-hero compact-hero" aria-label="金矿大亨">
         <div>
           <p class="eyebrow">GOLD MINE TYCOON</p>
           <h1>金矿大亨</h1>
@@ -21,95 +21,90 @@
         <button id="resetSave" class="reset-save" type="button">重置存档</button>
       </section>
 
-      <section class="gold-layout">
-        <section class="mine-panel" aria-label="开采区">
-          <div class="resource-strip">
-            <div class="resource">
-              <span>金币</span>
-              <strong id="goldAmount">0</strong>
-            </div>
-            <div class="resource">
-              <span>每秒</span>
-              <strong id="gpsAmount">0</strong>
-            </div>
-            <div class="resource">
-              <span>点击</span>
-              <strong id="clickPower">1</strong>
-            </div>
-          </div>
+      <section class="scene-panel" aria-label="金矿开采主场景">
+        <img class="scene-bg" src="assets/gold_new/main.png" alt="">
 
-          <div class="mine-stage" aria-label="矿场运输动画">
-            <div class="stage-cave" aria-hidden="true"></div>
-            <div id="stageUnits" class="stage-units" aria-hidden="true"></div>
-            <img class="stage-warehouse" src="assets/gold/warehouse.png" alt="">
+        <div class="scene-hud" aria-label="资源状态">
+          <div class="resource">
+            <span>金币</span>
+            <strong id="goldAmount">0</strong>
           </div>
-
-          <button id="coinButton" class="coin-button" type="button" aria-label="开采金币">
-            <img src="assets/gold/gold-coin.png" alt="">
-          </button>
-          <p id="mineMessage" class="mine-message" role="status">点击金币开始开采。</p>
-
-          <div class="progress-wrap" aria-label="目标进度">
-            <div class="progress-label">
-              <span>矿场进度</span>
-              <strong id="progressText">0%</strong>
-            </div>
-            <div class="progress-track">
-              <span id="progressBar"></span>
-            </div>
+          <div class="resource">
+            <span>每秒</span>
+            <strong id="gpsAmount">0</strong>
           </div>
+          <div class="resource">
+            <span>点击</span>
+            <strong id="clickPower">1</strong>
+          </div>
+        </div>
+
+        <button id="sceneMineButton" class="scene-mine-button" type="button" aria-label="点击金矿采矿"></button>
+        <div id="sceneActors" class="scene-actors" aria-hidden="true"></div>
+        <div id="sceneEffects" class="scene-effects" aria-hidden="true"></div>
+
+        <div class="scene-progress" aria-label="目标进度">
+          <div class="progress-label">
+            <span>矿场进度</span>
+            <strong id="progressText">0%</strong>
+          </div>
+          <div class="progress-track">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+      </section>
+
+      <p id="mineMessage" class="mine-message scene-message" role="status">点击主场景里的金矿开始开采。</p>
+
+      <section class="bottom-panels">
+        <section class="shop-panel" aria-label="商店">
+          <div class="shop-heading">
+            <p class="eyebrow">SHOP</p>
+            <h2>升级矿场</h2>
+          </div>
+          <div id="shopList" class="shop-list"></div>
         </section>
 
-        <aside class="side-panels">
-          <section class="shop-panel" aria-label="商店">
-            <div class="shop-heading">
-              <p class="eyebrow">SHOP</p>
-              <h2>升级矿场</h2>
-            </div>
-            <div id="shopList" class="shop-list"></div>
-          </section>
+        <section class="gem-panel" aria-label="宝石工坊">
+          <div class="shop-heading">
+            <p class="eyebrow">GEMS</p>
+            <h2>宝石工坊</h2>
+          </div>
 
-          <section class="gem-panel" aria-label="宝石工坊">
-            <div class="shop-heading">
-              <p class="eyebrow">GEMS</p>
-              <h2>宝石工坊</h2>
+          <div class="rough-row">
+            <span class="rough-icon" aria-hidden="true"></span>
+            <div>
+              <strong>包石原石</strong>
+              <small>挖矿时偶尔发现，可以凿开，也可以直接出售。</small>
             </div>
+            <b id="roughStoneCount">0</b>
+          </div>
 
-            <div class="rough-row">
-              <span class="rough-icon" aria-hidden="true"></span>
-              <div>
-                <strong>包石原石</strong>
-                <small>挖矿时偶尔发现，可以凿开，也可以直接出售。</small>
-              </div>
-              <b id="roughStoneCount">0</b>
+          <div class="gem-actions">
+            <button id="chiselStone" type="button">凿开 · <span id="chiselCost">100</span></button>
+            <button id="sellStone" type="button">出售 300</button>
+          </div>
+
+          <div class="gem-stats">
+            <div class="gem-stat low">
+              <span>低级</span>
+              <strong id="lowGemCount">0</strong>
+              <small>+0.1%</small>
             </div>
-
-            <div class="gem-actions">
-              <button id="chiselStone" type="button">凿开 · <span id="chiselCost">100</span></button>
-              <button id="sellStone" type="button">出售 300</button>
+            <div class="gem-stat mid">
+              <span>中级</span>
+              <strong id="midGemCount">0</strong>
+              <small>+0.2%</small>
             </div>
-
-            <div class="gem-stats">
-              <div class="gem-stat low">
-                <span>低级</span>
-                <strong id="lowGemCount">0</strong>
-                <small>+0.1%</small>
-              </div>
-              <div class="gem-stat mid">
-                <span>中级</span>
-                <strong id="midGemCount">0</strong>
-                <small>+0.2%</small>
-              </div>
-              <div class="gem-stat high">
-                <span>高级</span>
-                <strong id="highGemCount">0</strong>
-                <small>+1%</small>
-              </div>
+            <div class="gem-stat high">
+              <span>高级</span>
+              <strong id="highGemCount">0</strong>
+              <small>+1%</small>
             </div>
+          </div>
 
-            <p class="gem-bonus">总产量加成：<strong id="gemBonusText">+0%</strong></p>
-          </section>
-        </aside>
+          <p class="gem-bonus">总产量加成：<strong id="gemBonusText">+0%</strong></p>
+        </section>
       </section>
     </main>
 
