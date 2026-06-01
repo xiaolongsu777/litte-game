@@ -21,8 +21,8 @@
         <button id="resetSave" class="reset-save" type="button">重置存档</button>
       </section>
 
-      <section class="scene-panel" aria-label="金矿开采主场景">
-        <img class="scene-bg" src="assets/gold_new/main.png" alt="">
+      <section id="scenePanel" class="scene-panel" aria-label="金矿开采主场景">
+        <img id="sceneBg" class="scene-bg" src="assets/gold_new/main.png" alt="">
 
         <div class="scene-hud" aria-label="资源状态">
           <div class="resource">
@@ -36,6 +36,10 @@
           <div class="resource">
             <span>点击</span>
             <strong id="clickPower">1</strong>
+          </div>
+          <div class="resource cycle-resource">
+            <span id="cyclePhaseText">白天</span>
+            <strong id="cycleTimer">03:00</strong>
           </div>
         </div>
 
@@ -63,6 +67,17 @@
             <h2>升级矿场</h2>
           </div>
           <div id="shopList" class="shop-list"></div>
+
+          <section class="management-card" aria-label="工人镐子">
+            <div class="management-heading">
+              <div>
+                <p class="eyebrow">TOOLS</p>
+                <h3>工人镐子</h3>
+              </div>
+              <strong id="workerBoostText">+0%</strong>
+            </div>
+            <div id="pickaxeUpgradeList" class="upgrade-list"></div>
+          </section>
         </section>
 
         <section class="gem-panel" aria-label="宝石工坊">
@@ -104,6 +119,22 @@
           </div>
 
           <p class="gem-bonus">总产量加成：<strong id="gemBonusText">+0%</strong></p>
+
+          <section class="management-card engineer-card" aria-label="工程师训练">
+            <div class="management-heading">
+              <div>
+                <p class="eyebrow">ENGINEER</p>
+                <h3>工程师训练</h3>
+              </div>
+              <strong id="engineerCount">0</strong>
+            </div>
+            <p id="engineerBoostText" class="management-note">矿车与铲车效率 +0%</p>
+            <div class="training-progress" aria-label="训练进度">
+              <span id="trainingProgressBar"></span>
+            </div>
+            <p id="trainingStatus" class="management-note">消耗 1 名工人、三类宝石各 1、100K 金币，训练 6 分钟。</p>
+            <button id="trainEngineer" class="management-action" type="button">训练工程师</button>
+          </section>
         </section>
       </section>
     </main>
